@@ -49,8 +49,11 @@ func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) 
 		// If it's a CommandConfig, add the actual command
 		if subCmd, ok := v.(map[interface{}]interface{}); ok {
 			subCmdInfo, infoExists := subCmd["_info"]
-			if !infoExists {
-				subCmdInfo = "" // default _info
+			if !infoExists { // add default _info based on _cmd
+				subCmdInfo = ""
+				if cmdStr, exists := subCmd["_cmd"].(string); exists {
+					subCmdInfo = cmdStr
+				}
 			}
 			cmd := &cobra.Command{
 				Use:   key,

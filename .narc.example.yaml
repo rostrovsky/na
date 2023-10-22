@@ -4,19 +4,19 @@ aliases:
     dev:
       _info: DEV environments aliases
       host-x:
-        _info: makes ssh connection to host Y on DEV env
+        _info: makes ssh connection to host X on DEV env
         _cmd: ssh user@host-x
       host-y:
         _info: makes ssh connection to host Y on DEV env
         _cmd: ssh user@host-y
     prod:
       _info: PROD environments aliases
-      host-x:
-        _info: makes ssh connection to host Y on PROD env
+      host-a:
+        _info: makes ssh connection to host A on PROD env
         _cmd: ssh user@host-x
-      host-y:
-        _info: makes ssh connection to host Y on PROD env
+      host-b:
+        _info: makes ssh connection to host B on PROD env
         _cmd: ssh user@host-y
   grep: # _info key is completely optional though recommended
     heron:
-      _cmd: grep -hEron --with-filename
+      _cmd: grep -hEron --with-filename --color=always
