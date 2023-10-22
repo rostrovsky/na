@@ -40,22 +40,6 @@ func init() {
 	}
 
 	createCommands(aliases["aliases"].(map[interface{}]interface{}), rootCmd)
-
-	rootCmd.AddCommand(&cobra.Command{
-		Use:   "completion:zsh",
-		Short: "Generates zsh completion scripts",
-		Run: func(cmd *cobra.Command, args []string) {
-			rootCmd.GenZshCompletion(os.Stdout)
-		},
-	})
-
-	rootCmd.AddCommand(&cobra.Command{
-		Use:   "completion:bash",
-		Short: "Generates bash completion scripts",
-		Run: func(cmd *cobra.Command, args []string) {
-			rootCmd.GenBashCompletion(os.Stdout)
-		},
-	})
 }
 
 func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) {
@@ -64,9 +48,13 @@ func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) 
 
 		// If it's a CommandConfig, add the actual command
 		if subCmd, ok := v.(map[interface{}]interface{}); ok {
+			subCmdInfo, infoExists := subCmd["_info"]
+			if !infoExists {
+				subCmdInfo = "" // default _info
+			}
 			cmd := &cobra.Command{
 				Use:   key,
-				Short: subCmd["_info"].(string),
+				Short: subCmdInfo.(string),
 				Run: func(c *cobra.Command, args []string) {
 					// Extract the _cmd and execute it
 					if cmdStr, exists := subCmd["_cmd"].(string); exists {
