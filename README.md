@@ -1,2 +1,3 @@
 # sodium
-Nested aliases for command line
+
+**N**ested **a**liases for command line
