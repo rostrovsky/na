@@ -1,3 +1,3 @@
 # sodium
 
-**N**ested **a**liases for command line
+**N**ested **a**liases for your shell.
