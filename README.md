@@ -6,6 +6,13 @@
 
 **N**ested **a**liases for your shell.
 
+## TODO
+
+* [ ] support for minimal form config
+* [ ] test on powershell
+* [ ] readme
+* [ ] version
+
 ## Example
 
 1. Set aliases in config file.
