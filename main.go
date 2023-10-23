@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"log/slog"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -18,7 +19,7 @@ type CommandConfig struct {
 
 var rootCmd = &cobra.Command{
 	Use:   "na",
-	Short: "Dynamically built CLI based on a YAML config",
+	Short: "Dynamically builds CLI based on a YAML config",
 }
 
 func init() {
@@ -49,22 +50,32 @@ func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) 
 		// If it's a CommandConfig, add the actual command
 		if subCmd, ok := v.(map[interface{}]interface{}); ok {
 			subCmdInfo, infoExists := subCmd["_info"]
+			cmdStr, cmdExists := subCmd["_cmd"].(string)
+
 			if !infoExists { // add default _info based on _cmd
 				subCmdInfo = ""
-				if cmdStr, exists := subCmd["_cmd"].(string); exists {
+				if cmdExists {
 					subCmdInfo = cmdStr
 				}
 			}
+
+			if cmdExists {
+				slog.Debug("parsed alias", "key", k, "info", subCmdInfo, "cmd", cmdStr)
+			} else {
+				slog.Debug("parsed group", "key", k, "info", subCmdInfo)
+			}
+
 			cmd := &cobra.Command{
 				Use:   key,
 				Short: subCmdInfo.(string),
 				Run: func(c *cobra.Command, args []string) {
 					// Extract the _cmd and execute it
-					if cmdStr, exists := subCmd["_cmd"].(string); exists {
+					if cmdExists {
 						executeShellCmd(cmdStr, args)
 					}
 				},
 			}
+
 			parentCmd.AddCommand(cmd)
 			createCommands(subCmd, cmd)
 		}
@@ -75,17 +86,20 @@ func executeShellCmd(command string, args []string) {
 	cmdWithArgs := strings.Split(command, " ")
 	cmdWithArgs = append(cmdWithArgs, args...)
 
+	slog.Debug("Executing command", "cmd", cmdWithArgs)
+
 	cmd := exec.Command(cmdWithArgs[0], cmdWithArgs[1:]...)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
 	if err := cmd.Run(); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to execute the command: %v\n", err)
+		slog.Debug("Failed to execute the command", "err", err)
+		// os.Exit with original error code here!
 	}
 }
 
 func main() {
 	if err := rootCmd.Execute(); err != nil {
-		fmt.Fprintf(os.Stderr, "Failed to execute rootCmd: %v\n", err)
+		slog.Debug("Failed to execute rootCmd", "err", err)
 		os.Exit(1)
 	}
 }

@@ -12,6 +12,7 @@
 * [ ] test on powershell
 * [ ] readme
 * [ ] version
+* [ ] debug logs
 
 ## Example
 
