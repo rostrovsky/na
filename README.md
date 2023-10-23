@@ -1,7 +1,7 @@
 # sodium
 
 <p align="center">
-    <img width="150" src="./na.svg" alt="Sodium">
+    <img src="./na.png" alt="Sodium">
 </p>
 
 **N**ested **a**liases for your shell.
