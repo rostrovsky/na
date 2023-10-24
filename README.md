@@ -9,10 +9,10 @@
 ## TODO
 
 * [ ] support for minimal form config
-* [ ] test on powershell
+* [x] test on powershell
 * [ ] readme
-* [ ] version
-* [ ] debug logs
+* [x] version
+* [x] debug logs
 
 ## Example
 
@@ -20,30 +20,29 @@
 2. Generate autocompletions for your shell:
 
     * bash
-    
+
         ```shell
-        jaja
+        source <(na completion bash)
         ```
-    
-    * bash
-    
+
+    * zsh
+
         ```shell
-        jaja
+        source <(na completion zsh)
         ```
 
     * powershell
-    
+
         ```shell
-        jaja
+        Register-ArgumentCompleter -CommandName na -ScriptBlock $__naCompleterBlock
+        na completion powershell | Out-String | Invoke-Expression
         ```
 
     * fish
 
         ```shell
-        jaja
+        na completion fish | source
         ```
-
-        
 
 ## Config file schema
 
@@ -72,6 +71,10 @@ Below aliases cannot be used due to being [cobra](https://github.com/spf13/cobra
 * `help`
 * `--help`
 * `-h`
+
+## Debug logs
+
+If need to to see debug logs, set `SODIUM_LOG_LEVEL` env variable to `debug` (case insensitive).
 
 ## License
 
