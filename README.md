@@ -6,17 +6,9 @@
 
 **N**ested **a**liases for your shell.
 
-## TODO
-
-* [ ] support for minimal form config
-* [x] test on powershell
-* [ ] readme
-* [x] version
-* [x] debug logs
-
 ## Example
 
-1. Set aliases in config file.
+1. Set aliases in [config file](#config-file).
 2. Generate autocompletions for your shell:
 
     * bash
@@ -44,9 +36,11 @@
         na completion fish | source
         ```
 
-## Config file schema
+## Config file
 
-### Minimal form
+### Config file schema
+
+#### Minimal form
 
 ```yaml
 # minimal form config example
@@ -62,9 +56,9 @@ aliases:
     heron: grep -hEron --with-filename --color=always
 ```
 
-### Full form
+#### Full form
 
-In comparison to minimal form, in full format:
+Compared to the minimal form, in the full form:
 
 * you must add mandatory `_cmd` key which contains aliased command
 * you can add optional `_info` key that enriches autocompletion hints with description.
@@ -95,7 +89,7 @@ aliases:
       _cmd: grep -hEron --with-filename --color=always
 ```
 
-## Config file location
+### Config file location
 
 By default, `na` expects configuration file placed in `~/.config/sodium/.narc.yaml`.
 
