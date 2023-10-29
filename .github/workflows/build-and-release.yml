@@ -65,7 +65,7 @@ jobs:
   release:
     needs: build
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: startsWith(github.event.ref, 'refs/tags/v')
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
