@@ -64,8 +64,8 @@ aliases:
       host-x: ssh user@host-x
       host-y: ssh user@host-y
     prod:
-      host-a: ssh user@host-x
-      host-b: ssh user@host-y
+      host-a: ssh user@host-a
+      host-b: ssh user@host-b
   grep:
     heron: grep -hEron --with-filename --color=always
 ```
@@ -94,10 +94,10 @@ aliases:
       _info: PROD environments aliases
       host-a:
         _info: makes ssh connection to host A on PROD env
-        _cmd: ssh user@host-x
+        _cmd: ssh user@host-a
       host-b:
         _info: makes ssh connection to host B on PROD env
-        _cmd: ssh user@host-y
+        _cmd: ssh user@host-b
   grep: # _info key is completely optional though recommended
     heron:
       _cmd: grep -hEron --with-filename --color=always

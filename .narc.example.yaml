@@ -14,10 +14,10 @@ aliases:
       _info: PROD environments aliases
       host-a:
         _info: makes ssh connection to host A on PROD env
-        _cmd: ssh user@host-x
+        _cmd: ssh user@host-a
       host-b:
         _info: makes ssh connection to host B on PROD env
-        _cmd: ssh user@host-y
+        _cmd: ssh user@host-b
   grep: # _info key is completely optional though recommended
     heron:
       _cmd: grep -hEron --with-filename --color=always
