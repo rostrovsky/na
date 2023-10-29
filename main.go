@@ -59,9 +59,25 @@ func init() {
 func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) {
 	for k, v := range data {
 		key := k.(string)
+		// handle minimal format command
+		if cmd, ok := v.(string); ok {
+			if strings.HasPrefix(key, "_") {
+				continue
+			}
+			logger.Info("parsed alias (minimal form)", "key", k, "cmd", cmd)
+			cmd := &cobra.Command{
+				Use:   key,
+				Short: cmd,
+				Run: func(c *cobra.Command, args []string) {
+					// Extract the _cmd and execute it
 
-		// If it's a CommandConfig, add the actual command
-		if subCmd, ok := v.(map[interface{}]interface{}); ok {
+					executeShellCmd(cmd, args)
+
+				},
+			}
+			parentCmd.AddCommand(cmd)
+		// handle full format command
+		} else if subCmd, ok := v.(map[interface{}]interface{}); ok {
 			subCmdInfo, infoExists := subCmd["_info"]
 			cmdStr, cmdExists := subCmd["_cmd"].(string)
 

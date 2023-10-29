@@ -1,3 +1,4 @@
+# full form config example
 aliases:
   ssh:
     _info: aliases for SSH connections
