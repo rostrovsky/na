@@ -1,0 +1,11 @@
+# minimal form config example
+aliases:
+  ssh:
+    dev:
+      host-x: ssh user@host-x
+      host-y: ssh user@host-y
+    prod:
+      host-a: ssh user@host-a
+      host-b: ssh user@host-b
+  grep:
+    heron: grep -hEron --with-filename --color=always
