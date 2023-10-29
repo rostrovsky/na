@@ -37,9 +37,15 @@ func init() {
 	logger = slog.New(slog.NewTextHandler(os.Stdout, logOpts))
 
 	// read config file
-	configPath := filepath.Join(os.Getenv("HOME"), ".config", "sodium", ".narc.yaml")
+	var configPath string
 	if envPath, ok := os.LookupEnv("SODIUM_CONFIG"); ok {
 		configPath = envPath
+	} else {
+		configPath = filepath.Join(os.Getenv("HOME"), ".config", "sodium", ".narc.yaml")
+		_, err := os.ReadFile(configPath)
+		if err != nil {
+			configPath = filepath.Join(os.Getenv("HOME"), ".config", "sodium", ".narc.yml")
+		}
 	}
 
 	data, err := os.ReadFile(configPath)

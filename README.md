@@ -105,7 +105,7 @@ aliases:
 
 ### Config file location
 
-By default, `na` expects configuration file placed in `~/.config/sodium/.narc.yaml`.
+By default, `na` expects configuration file placed in `~/.config/sodium/.narc.yaml` (or `.yml`).
 
 You can override default config file location by setting `SODIUM_CONFIG` environment variable.
 
