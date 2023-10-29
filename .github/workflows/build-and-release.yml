@@ -58,9 +58,9 @@ jobs:
         with:
           name: binaries
           path: |
-            ${LINUX_AMD_ARCHIVE}
-            ${LINUX_ARM_ARCHIVE}
-            ${WIN_AMD_ARCHIVE}
+            ${{ env.LINUX_AMD_ARCHIVE }}
+            ${{ env.LINUX_ARM_ARCHIVE }}
+            ${{ env.WIN_AMD_ARCHIVE }}
 
   release:
     needs: build
@@ -86,8 +86,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ github.ref }}
-          release_name: Sodium ${{ github.ref }}
+          tag_name: "${{ steps.branch.outputs.branch }}"
+          release_name: "Sodium ${{ steps.branch.outputs.branch }}"
           draft: false
           prerelease: false
 
@@ -98,8 +98,8 @@ jobs:
           LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-amd64.tar.gz
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${LINUX_AMD_ARCHIVE}
-          asset_name: ${LINUX_AMD_ARCHIVE}
+          asset_path: ./${{ env.LINUX_AMD_ARCHIVE }}
+          asset_name: ${{ env.LINUX_AMD_ARCHIVE }}
           asset_content_type: application/octet-stream
 
       - name: Upload Linux ARM Archive
@@ -109,8 +109,8 @@ jobs:
           LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-arm.tar.gz
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${LINUX_ARM_ARCHIVE}
-          asset_name: ${LINUX_ARM_ARCHIVE}
+          asset_path: ./${{ env.LINUX_ARM_ARCHIVE }}
+          asset_name: ${{ env.LINUX_ARM_ARCHIVE }}
           asset_content_type: application/octet-stream
 
       - name: Upload Windows amd64 Archive
@@ -120,6 +120,6 @@ jobs:
           WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-win-amd64.zip
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./${WIN_AMD_ARCHIVE}
-          asset_name: ${WIN_AMD_ARCHIVE}
+          asset_path: ./${{ env.WIN_AMD_ARCHIVE }}
+          asset_name: ${{ env.WIN_AMD_ARCHIVE }}
           asset_content_type: application/octet-stream
