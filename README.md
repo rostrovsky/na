@@ -6,10 +6,18 @@
 
 **N**ested **a**liases for your shell.
 
-## Example
+## Quick start
 
-1. Set aliases in [config file](#config-file).
-2. Generate autocompletions for your shell:
+1. Install `na`
+
+    ```shell
+    go install github.com/rostrovsky/sodium@latest
+    ```
+
+    ...or download binary from the [releases page](./releases) and put it somewhere in your `$PATH`.
+
+1. Set up your aliases in [config file](#config-file).
+1. Generate autocompletions for your shell:
 
     * bash
 
@@ -35,6 +43,12 @@
         ```shell
         na completion fish | source
         ```
+
+1. Use it!
+
+    ```shell
+    na # and then press Tab ↹ as many times as you need
+    ```
 
 ## Config file
 
