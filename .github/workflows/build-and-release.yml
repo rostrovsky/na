@@ -8,10 +8,9 @@ on:
       - 'v*'
 
 env:
-  GITHUB_REF: ${{ github.ref }}
-  LINUX_AMD_ARCHIVE: sodium-${GITHUB_REF}-linux-amd64.tar.gz
-  LINUX_ARM_ARCHIVE: sodium-${GITHUB_REF}-linux-arm.tar.gz
-  WIN_AMD_ARCHIVE: sodium-${GITHUB_REF}-win-amd64.zip
+  LINUX_AMD_ARCHIVE: sodium-${{ github.ref }}-linux-amd64.tar.gz
+  LINUX_ARM_ARCHIVE: sodium-${{ github.ref }}-linux-arm.tar.gz
+  WIN_AMD_ARCHIVE: sodium-${{ github.ref }}-win-amd64.zip
 
 jobs:
   build:
