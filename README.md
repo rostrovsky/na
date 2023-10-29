@@ -112,6 +112,7 @@ Below aliases cannot be used due to being [cobra](https://github.com/spf13/cobra
 * `help`
 * `--help`
 * `-h`
+* any alias starting with underscore `_`
 
 ## Debug logs
 
