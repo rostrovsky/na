@@ -65,7 +65,7 @@ func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) 
 			if strings.HasPrefix(key, "_") {
 				continue
 			}
-			logger.Info("parsed alias (minimal form)", "key", k, "cmd", cmd)
+			logger.Debug("parsed alias (minimal form)", "key", k, "cmd", cmd)
 			cmd := &cobra.Command{
 				Use:   key,
 				Short: cmd,
