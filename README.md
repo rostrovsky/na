@@ -130,7 +130,7 @@ Below aliases cannot be used due to being [cobra](https://github.com/spf13/cobra
 
 ## Debug logs
 
-If need to to see debug logs, set `SODIUM_LOG_LEVEL` env variable to `debug` (case insensitive).
+If you need to see the debug logs, set `SODIUM_LOG_LEVEL` env variable to `debug` (case insensitive).
 
 ## License
 
