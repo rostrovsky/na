@@ -36,6 +36,7 @@ func init() {
 
 	logger = slog.New(slog.NewTextHandler(os.Stdout, logOpts))
 
+	// read config file
 	configPath := filepath.Join(os.Getenv("HOME"), ".config", "sodium", ".narc.yaml")
 	if envPath, ok := os.LookupEnv("SODIUM_CONFIG"); ok {
 		configPath = envPath
@@ -76,7 +77,7 @@ func createCommands(data map[interface{}]interface{}, parentCmd *cobra.Command) 
 				},
 			}
 			parentCmd.AddCommand(cmd)
-		// handle full format command
+			// handle full format command
 		} else if subCmd, ok := v.(map[interface{}]interface{}); ok {
 			subCmdInfo, infoExists := subCmd["_info"]
 			cmdStr, cmdExists := subCmd["_cmd"].(string)
