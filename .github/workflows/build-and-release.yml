@@ -14,9 +14,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get branch name
+      - name: Get ref
         id: branch
-        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "ref=$(echo $GITHUB_REF | cut -d'/' -f3)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Set up Go
@@ -27,9 +27,9 @@ jobs:
       - name: Build Binaries
         id: build
         env:
-          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-amd64.tar.gz
-          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-arm.tar.gz
-          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-win-amd64.zip
+          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-amd64.tar.gz
+          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-arm.tar.gz
+          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-win-amd64.zip
         run: |
           echo "Building Linux amd64 binary"
           GOOS=linux GOARCH=amd64 go build -o na
@@ -52,9 +52,9 @@ jobs:
         if: contains(github.ref, 'refs/heads/')
         uses: actions/upload-artifact@v2
         env:
-          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-amd64.tar.gz
-          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-arm.tar.gz
-          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-win-amd64.zip
+          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-amd64.tar.gz
+          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-arm.tar.gz
+          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-win-amd64.zip
         with:
           name: binaries
           path: |
@@ -71,9 +71,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Get branch name
+      - name: Get ref
         id: branch
-        run: echo "::set-output name=branch::$(echo ${GITHUB_REF#refs/heads/})"
+        run: echo "ref=$(echo $GITHUB_REF | cut -d'/' -f3)" >> $GITHUB_OUTPUT
         shell: bash
 
       - name: Download binaries from artifacts
@@ -87,8 +87,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: "${{ steps.branch.outputs.branch }}"
-          release_name: "Sodium ${{ steps.branch.outputs.branch }}"
+          tag_name: "${{ steps.branch.outputs.ref }}"
+          release_name: "Sodium ${{ steps.branch.outputs.ref }}"
           draft: false
           prerelease: false
 
@@ -96,7 +96,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-amd64.tar.gz
+          LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-amd64.tar.gz
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./${{ env.LINUX_AMD_ARCHIVE }}
@@ -107,7 +107,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-linux-arm.tar.gz
+          LINUX_ARM_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-arm.tar.gz
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./${{ env.LINUX_ARM_ARCHIVE }}
@@ -118,7 +118,7 @@ jobs:
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.branch }}-win-amd64.zip
+          WIN_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-win-amd64.zip
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./${{ env.WIN_AMD_ARCHIVE }}
