@@ -48,8 +48,8 @@ jobs:
 
           ls -lah
 
-      - name: Upload binaries to artifacts (feature branch only)
-        if: contains(github.ref, 'refs/heads/')
+      - name: Upload binaries to artifacts
+        if: contains(github.ref, 'refs/tags/v')
         uses: actions/upload-artifact@v2
         env:
           LINUX_AMD_ARCHIVE: sodium-${{ steps.branch.outputs.ref }}-linux-amd64.tar.gz
