@@ -13,7 +13,7 @@ import (
 )
 
 var logger *slog.Logger
-var version = "<< set by build >>"
+var version = "[[set by build]]"
 
 type CommandConfig struct {
 	Info string `yaml:"_info"`

@@ -1,4 +1,4 @@
-module github.com/rostrovsky/sodium
+module github.com/rostrovsky/na
 
 go 1.21.0
 
