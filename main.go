@@ -12,8 +12,9 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+const version = "0.1.0"
+
 var logger *slog.Logger
-var Version = "[[set by build]]"
 
 type CommandConfig struct {
 	Info string `yaml:"_info"`
@@ -23,7 +24,7 @@ type CommandConfig struct {
 var rootCmd = &cobra.Command{
 	Use:     "na",
 	Short:   "Dynamically builds CLI based on a YAML config",
-	Version: Version,
+	Version: version,
 }
 
 func init() {
