@@ -11,7 +11,7 @@
 1. Install `na`
 
     ```shell
-    go install github.com/rostrovsky/sodium@latest
+    go install github.com/rostrovsky/na@latest
     ```
 
     ...or download binary from the [releases page](./releases) and put it somewhere in your `$PATH`.
