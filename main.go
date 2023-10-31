@@ -13,6 +13,7 @@ import (
 )
 
 var logger *slog.Logger
+var version = "<< set by build >>"
 
 type CommandConfig struct {
 	Info string `yaml:"_info"`
@@ -22,7 +23,7 @@ type CommandConfig struct {
 var rootCmd = &cobra.Command{
 	Use:     "na",
 	Short:   "Dynamically builds CLI based on a YAML config",
-	Version: "0.1.0",
+	Version: version,
 }
 
 func init() {
